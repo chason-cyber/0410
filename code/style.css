@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宇謙的購物車 - 動態進階版</title>
+  <style>
+    /* 1. 表格樣式 (修正選取器) */
+    table, th, td {
+      border: solid 1px;
+      caption-side: bottom;
+      text-align: center;
+    }
+    table {
+      border-spacing: 2px 5px;
+      width: 100%;
+      background-color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #d6eeee; /* 偶數列換色 */
+    }
+
+    /* 2. 動畫方塊樣式 */
+    .animation-div {
+      background-color: aqua;
+      width: 200px;
+      position: relative;
+      animation: moves 2s infinite alternate;
+      padding: 10px;
+      margin: 10px 0;
+      text-align: center;
+      z-index: 10;
+    }
+    @keyframes moves {
+      from { left: 0; }
+      to { left: 200px; } /* 修正：避免超出螢幕太多 */
+    }
+
+    /* 3. 盒子模型練習 (Box Model) */
+    .box {
+      width: 80px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: lightblue;
+      padding: 20px;
+      border: 15px solid black;
+      margin: 20px auto; /* 改為 auto 方便居中觀察 */
+    }
+
+    /* 4. 相對定位練習 */
+    #parent {
+      width: 200px;
+      height: 100px;
+      background-color: pink;
+      margin: 10px;
+    }
+    #child {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: relative;
+      top: 30px;
+      left: 20px;
+    }
+
+    /* 5. 核心：購物車 Grid 佈局 */
+    .container {
+      display: grid;
+      width: 100%;
+      height: 600px; /* 給定高度方便觀察 */
+      grid-template-areas: 
+        "header header header"
+        "side-1 article-0-1-1 article-1-1"
+        "side-1 article-4 article-5"
+        "side-1 article-6 article-7"
+        "footer footer footer";
+      grid-template-columns: 150px 1fr 1fr;
+      grid-template-rows: 80px 1fr 1fr 1fr 60px;
+      gap: 5px;
+    }
+    .container > div {
+      border: 1px dashed #888;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 指定 Grid 區域 */
+    .header { grid-area: header; background-color: #333 !important; color: white; }
+    .side-1 { grid-area: side-1; }
+    .article-0-1-1 { grid-area: article-0-1-1; }
+    .article-1-1 { grid-area: article-1-1; }
+    .article-4 { grid-area: article-4; }
+    .article-5 { grid-area: article-5; }
+    .article-6 { grid-area: article-6; }
+    .article-7 { grid-area: article-7; }
+    .footer { grid-area: footer; background-color: #333 !important; color: white; }
+
+    /* 按鈕樣式 */
+    button { cursor: pointer; background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <div class="animation-div">我是會動的標題！</div>
+
+  <div class="container">
+    <div class="header">
+      <h3>購物商城導覽列</h3>
+      <p>結帳總額：$<span id="total">0</span></p>
+    </div>
+
+    <div class="side-1">
+      <table>
+        <caption>課程與分類</caption>
+        <thead>
+          <tr><th>課程</th><th>老師</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>前端網頁</td><td>張三</td></tr>
+          <tr><td>動態網頁</td><td>李四</td></tr>
+          <tr><td>人工智慧</td><td>王五</td></tr>
+        </tbody>
+      </table>
+      <p>台灣蔬食：空心菜、花椰菜</p>
+    </div>
+
+    <div class="article-0-1-1">
+      <h4>空心菜</h4><p>$50</p>
+      <button onclick="buy(50)">加入</button>
+    </div>
+    <div class="article-1-1">
+      <h4>花椰菜</h4><p>$60</p>
+      <button onclick="buy(60)">加入</button>
+    </div>
+    <div class="article-4">
+      <h4>豆芽菜</h4><p>$30</p>
+      <button onclick="buy(30)">加入</button>
+    </div>
+    <div class="article-5">
+      <h4>美味便當</h4><p>$100</p>
+      <button onclick="buy(100)">加入</button>
+    </div>
+    <div class="article-6">
+      <h4>例湯</h4><p>$40</p>
+      <button onclick="buy(40)">加入</button>
+    </div>
+    <div class="article-7">
+      <h4>水果</h4><p>$25</p>
+      <button onclick="buy(25)">加入</button>
+    </div>
+
+    <div class="footer">© 2026 購物車專案 - 陳宇謙</div>
+  </div>
+
+  <div class="box">盒子文字!</div>
+  
+  <div id="parent">
+    <div id="child">子盒子</div>
+  </div>
+
+  <script>
+    let sum = 0;
+    function buy(price) {
+      sum += price;
+      document.getElementById('total').innerText = sum;
+    }
+  </script>
+</body>
+</html>

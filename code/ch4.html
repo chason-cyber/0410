@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宇謙的購物車專案</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 這裡稍微美化一下表格與購物車卡片，讓它更好看 */
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: #fff; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    
+    .product-item { text-align: center; padding: 10px; }
+    .product-item button { background: #28a745; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
+    .product-item button:hover { background: #218838; }
+
+    /* 購物車訊息顯示在 Header */
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 0 15px; background: #333; color: white; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span>購物商城導覽列</span>
+    <div>🛒 購物車累計: $<span id="total-price">0</span></div>
+  </div>
+
+  <div class="side-1">
+    <table>
+      <caption>課表</caption>
+      <thead>
+        <tr><th>課程名稱</th><th>授課老師</th><th>學分</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>前端網頁</td><td>張三</td><td>3</td></tr>
+        <tr><td>動態網頁</td><td>李四</td><td>3</td></tr>
+        <tr><td>人工智慧</td><td>王五</td><td>1</td></tr>
+        <tr><td>英文</td><td>趙六</td><td>2</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+    <h3>台灣蔬食清單</h3>
+    <ul>
+      <li>炒空心菜</li>
+      <li>花椰菜</li>
+      <li>豆芽菜</li>
+    </ul>
+  </div>
+
+  <div class="article-0-1-1 product-item">
+    <h4>炒空心菜</h4>
+    <p>價格: $50</p>
+    <button onclick="add(50)">加入購物車</button>
+  </div>
+  
+  <div class="article-1-1 product-item">
+    <h4>花椰菜</h4>
+    <p>價格: $60</p>
+    <button onclick="add(60)">加入購物車</button>
+  </div>
+
+  <div class="article-4 product-item">
+    <h4>豆芽菜</h4>
+    <p>價格: $30</p>
+    <button onclick="add(30)">加入購物車</button>
+  </div>
+
+  <div class="article-5 product-item">
+    <h4>美味蔬食 A</h4>
+    <p>價格: $100</p>
+    <button onclick="add(100)">加入購物車</button>
+  </div>
+
+  <div class="article-6 product-item">
+    <h4>精選便當</h4>
+    <p>價格: $120</p>
+    <button onclick="add(120)">加入購物車</button>
+  </div>
+
+  <div class="article-7 product-item">
+    <h4>本日例湯</h4>
+    <p>價格: $40</p>
+    <button onclick="add(40)">加入購物車</button>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2026 購物車專題 - 陳宇謙製作</p>
+  </div>
+</div>
+
+<div class="box">盒子文字!</div>
+<div id="parent" style="width: 200px; height: 100px; background-color: pink; margin-top: 20px;">
+  <div id="child" style="width: 50px; height: 50px; background-color:red;"></div>
+</div>
+
+<script>
+  let totalPrice = 0;
+  function add(price) {
+    totalPrice += price;
+    document.getElementById('total-price').innerText = totalPrice;
+  }
+</script>
+
+</body>
+</html>
