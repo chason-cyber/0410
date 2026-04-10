@@ -1,0 +1,39 @@
+table ,th ,td{
+  border: solid 1px;
+  caption-side: bottom;
+  border-spacing: 2px 5px;
+  text-align: center;
+  tr:nth-child(even){background-color: #d6eeee;}
+}
+div{
+  background-color: aqua;
+  width:200px;
+ transition-duration: 1s;
+ position: relative;
+ animation: moves 2s infinite alternate;
+}
+div{
+   transform: rotate(-20deg);
+  transform-origin:20% 40% ;
+  transition-duration: 1s;
+}
+@keyframes moves{
+  from{left:0;}
+  to{left:500px;}
+}
+.box{
+  width:80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightblue;
+  padding:20px ;
+  border: 15px solid black;
+  margin: 100px;
+}
+#child{
+  position: relative;
+  top:30px;
+  left:20px;
+}

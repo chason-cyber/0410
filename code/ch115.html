@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的簡易購物車</title>
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --bg-color: #f4f4f4;
+    }
+    body { font-family: sans-serif; margin: 0; background: var(--bg-color); }
+
+    /* 你的 Grid 版面基礎 */
+    .container {
+      display: grid;
+      width: 100%;
+      min-height: 100vh;
+      grid-template-areas: 
+        "header header header"
+        "nav nav nav"
+        "left main right"
+        "footer footer footer";
+      grid-template-columns: 150px 1fr 300px;
+      grid-template-rows: 80px 50px 1fr 60px;
+      gap: 10px;
+    }
+
+    .container > div { background: white; padding: 15px; border: 1px solid #ddd; }
+
+    .header { grid-area: header; background: #333 !important; color: white; display: flex; align-items: center; justify-content: center; }
+    .nav { grid-area: nav; background: var(--primary-color) !important; color: white; }
+    .left { grid-area: left; }
+    .main { grid-area: main; }
+    .right { grid-area: right; border-left: 2px solid var(--primary-color) !important; }
+    .footer { grid-area: footer; text-align: center; }
+
+    /* 商品清單樣式 */
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    .product-card {
+      border: 1px solid #eee;
+      padding: 10px;
+      text-align: center;
+      border-radius: 8px;
+    }
+    .product-card button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    /* 購物車樣式 */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px dashed #ccc;
+    }
+    .total-price {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #e74c3c;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header"><h1>我的小商店</h1></div>
+  <div class="nav">熱門商品分類</div>
+  <div class="left">
+    <h3>分類</h3>
+    <ul>
+      <li>電子產品</li>
+      <li>生活用品</li>
+    </ul>
+  </div>
+  
+  <div class="main">
+    <h2>商品列表</h2>
+    <div class="product-list" id="product-list">
+      </div>
+  </div>
+
+  <div class="right">
+    <h2>🛒 購物車</h2>
+    <div id="cart-items">
+      <p>購物車是空的</p>
+    </div>
+    <div class="total-price">總計: $<span id="total-amount">0</span></div>
+    <button onclick="clearCart()" style="margin-top:10px;">清空購物車</button>
+  </div>
+
+  <div class="footer">© 2024 簡易購物車練習</div>
+</div>
+
+<script>
+  // 1. 模擬商品資料
+  const products = [
+    { id: 1, name: "無線滑鼠", price: 500 },
+    { id: 2, name: "機械鍵盤", price: 2000 },
+    { id: 3, name: "電腦螢幕", price: 4500 },
+    { id: 4, name: "USB 隨身碟", price: 300 }
+  ];
+
+  let cart = [];
+
+  // 2. 初始化商品列表
+  const productListDiv = document.getElementById('product-list');
+  products.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <h4>${product.name}</h4>
+      <p>$${product.price}</p>
+      <button onclick="addToCart(${product.id})">加入購物車</button>
+    `;
+    productListDiv.appendChild(card);
+  });
+
+  // 3. 加入購物車功能
+  function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    cart.push(product);
+    renderCart();
+  }
+
+  // 4. 渲染購物車內容
+  function renderCart() {
+    const cartDiv = document.getElementById('cart-items');
+    const totalSpan = document.getElementById('total-amount');
+    
+    if (cart.length === 0) {
+      cartDiv.innerHTML = '<p>購物車是空的</p>';
+      totalSpan.innerText = '0';
+      return;
+    }
+
+    cartDiv.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      total += item.price;
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'cart-item';
+      itemDiv.innerHTML = `
+        <span>${item.name}</span>
+        <span>$${item.price} <button onclick="removeFromCart(${index})">x</button></span>
+      `;
+      cartDiv.appendChild(itemDiv);
+    });
+
+    totalSpan.innerText = total;
+  }
+
+  // 5. 刪除特定商品
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    renderCart();
+  }
+
+  // 6. 清空購物車
+  function clearCart() {
+    cart = [];
+    renderCart();
+  }
+</script>
+
+</body>
+</html>
